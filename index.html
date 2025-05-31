@@ -39,14 +39,139 @@
       50% { transform: scale(1.2); }
       100% { transform: scale(1); }
     }
+
+    .quiz-container {
+      background-color: #fff;
+      padding: 30px;
+      margin: 40px auto;
+      max-width: 600px;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .question {
+      text-align: left;
+      margin-bottom: 20px;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 1em;
+      background-color: #d63384;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    #quizResult {
+      font-size: 1.2em;
+      margin-top: 20px;
+      font-weight: bold;
+    }
   </style>
 </head>
 <body>
   <div class="container">
     <div class="heart">❤️</div>
     <h1>Happy Birthday Abby!</h1>
-    <p>You are so loved. I hope this day makes you feel as special as you really are.</p>
-    <div class="heart">❤️</div>
+    <p>I love you, and I hope you have an amazing birthday!</p>
+  </div>
+
+  <div class="quiz-container">
+    <h2>Birthday Quiz: How Well Do You Know Us?</h2>
+    <form id="quizForm">
+      <div class="question">
+        <p>1. Where did we first hang out?</p>
+        <input type="radio" name="q1" value="a"> Coffee shop<br>
+        <input type="radio" name="q1" value="b"> Beach<br>
+        <input type="radio" name="q1" value="c"> Park<br>
+      </div>
+      <div class="question">
+        <p>2. What’s Abby’s favorite color?</p>
+        <input type="radio" name="q2" value="a"> Blue<br>
+        <input type="radio" name="q2" value="b"> Pink<br>
+        <input type="radio" name="q2" value="c"> Green<br>
+      </div>
+      <div class="question">
+        <p>3. What food do I always want?</p>
+        <input type="radio" name="q3" value="a"> Tacos<br>
+        <input type="radio" name="q3" value="b"> Sushi<br>
+        <input type="radio" name="q3" value="c"> Chick-fil-A<br>
+      </div>
+      <div class="question">
+        <p>4. What song reminds us of each other?</p>
+        <input type="radio" name="q4" value="a"> Perfect<br>
+        <input type="radio" name="q4" value="b"> Oceans<br>
+        <input type="radio" name="q4" value="c"> Tennessee Orange<br>
+      </div>
+      <div class="question">
+        <p>5. What’s my favorite nickname for you?</p>
+        <input type="radio" name="q5" value="a"> Lovebug<br>
+        <input type="radio" name="q5" value="b"> Babe<br>
+        <input type="radio" name="q5" value="c"> Honey<br>
+      </div>
+      <div class="question">
+        <p>6. What movie did we both love?</p>
+        <input type="radio" name="q6" value="a"> La La Land<br>
+        <input type="radio" name="q6" value="b"> The Notebook<br>
+        <input type="radio" name="q6" value="c"> Soul<br>
+      </div>
+      <div class="question">
+        <p>7. Who said "I love you" first?</p>
+        <input type="radio" name="q7" value="a"> Me<br>
+        <input type="radio" name="q7" value="b"> You<br>
+        <input type="radio" name="q7" value="c"> Both at the same time<br>
+      </div>
+      <div class="question">
+        <p>8. What animal reminds me of you?</p>
+        <input type="radio" name="q8" value="a"> Bunny<br>
+        <input type="radio" name="q8" value="b"> Puppy<br>
+        <input type="radio" name="q8" value="c"> Koala<br>
+      </div>
+      <div class="question">
+        <p>9. Where do I want to take you one day?</p>
+        <input type="radio" name="q9" value="a"> Paris<br>
+        <input type="radio" name="q9" value="b"> Hawaii<br>
+        <input type="radio" name="q9" value="c"> Alaska<br>
+      </div>
+      <div class="question">
+        <p>10. What do I love most about you?</p>
+        <input type="radio" name="q10" value="a"> Your laugh<br>
+        <input type="radio" name="q10" value="b"> Your heart<br>
+        <input type="radio" name="q10" value="c"> Your eyes<br>
+      </div>
+      <br>
+      <button type="button" onclick="submitQuiz()">Submit</button>
+    </form>
+    <p id="quizResult"></p>
   </div>
 </body>
+  <script>
+    function submitQuiz() {
+      const answers = {
+        q1: "b",
+        q2: "b",
+        q3: "c",
+        q4: "c",
+        q5: "a",
+        q6: "b",
+        q7: "a",
+        q8: "b",
+        q9: "a",
+        q10: "b"
+      };
+
+      let score = 0;
+      for (let q in answers) {
+        const selected = document.querySelector(`input[name="${q}"]:checked`);
+        if (selected && selected.value === answers[q]) {
+          score++;
+        }
+      }
+
+      const result = document.getElementById("quizResult");
+      result.textContent = `You scored ${score}/10! ❤️`;
+    }
+  </script>
 </html>
