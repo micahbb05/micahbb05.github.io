@@ -52,6 +52,7 @@
     .question {
       text-align: left;
       margin-bottom: 20px;
+      font-size: 1.2em;
     }
 
     button {
@@ -129,6 +130,7 @@
       const answerIndex = parseInt(selected.value);
       if (answerIndex === quizData[currentQuestion].answer) {
         score++;
+        alert("Correct! " + quizData[currentQuestion].question + " was a great memory!");
         currentQuestion++;
         if (currentQuestion < quizData.length) {
           loadQuestion();
@@ -141,7 +143,7 @@
           document.getElementById("finalScore").textContent = `You finished the quiz! Score: ${score}/10 ❤️`;
         }
       } else {
-        document.getElementById("feedback").textContent = "Oops! Try again 😊";
+        document.getElementById("feedback").textContent = "Oops! Try again.";
       }
     }
 
