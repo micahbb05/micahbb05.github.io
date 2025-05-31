@@ -80,98 +80,71 @@
 
   <div class="quiz-container">
     <h2>Birthday Quiz: How Well Do You Know Us?</h2>
-    <form id="quizForm">
-      <div class="question">
-        <p>1. Where did we first hang out?</p>
-        <input type="radio" name="q1" value="a"> Coffee shop<br>
-        <input type="radio" name="q1" value="b"> Beach<br>
-        <input type="radio" name="q1" value="c"> Park<br>
-      </div>
-      <div class="question">
-        <p>2. What’s Abby’s favorite color?</p>
-        <input type="radio" name="q2" value="a"> Blue<br>
-        <input type="radio" name="q2" value="b"> Pink<br>
-        <input type="radio" name="q2" value="c"> Green<br>
-      </div>
-      <div class="question">
-        <p>3. What food do I always want?</p>
-        <input type="radio" name="q3" value="a"> Tacos<br>
-        <input type="radio" name="q3" value="b"> Sushi<br>
-        <input type="radio" name="q3" value="c"> Chick-fil-A<br>
-      </div>
-      <div class="question">
-        <p>4. What song reminds us of each other?</p>
-        <input type="radio" name="q4" value="a"> Perfect<br>
-        <input type="radio" name="q4" value="b"> Oceans<br>
-        <input type="radio" name="q4" value="c"> Tennessee Orange<br>
-      </div>
-      <div class="question">
-        <p>5. What’s my favorite nickname for you?</p>
-        <input type="radio" name="q5" value="a"> Lovebug<br>
-        <input type="radio" name="q5" value="b"> Babe<br>
-        <input type="radio" name="q5" value="c"> Honey<br>
-      </div>
-      <div class="question">
-        <p>6. What movie did we both love?</p>
-        <input type="radio" name="q6" value="a"> La La Land<br>
-        <input type="radio" name="q6" value="b"> The Notebook<br>
-        <input type="radio" name="q6" value="c"> Soul<br>
-      </div>
-      <div class="question">
-        <p>7. Who said "I love you" first?</p>
-        <input type="radio" name="q7" value="a"> Me<br>
-        <input type="radio" name="q7" value="b"> You<br>
-        <input type="radio" name="q7" value="c"> Both at the same time<br>
-      </div>
-      <div class="question">
-        <p>8. What animal reminds me of you?</p>
-        <input type="radio" name="q8" value="a"> Bunny<br>
-        <input type="radio" name="q8" value="b"> Puppy<br>
-        <input type="radio" name="q8" value="c"> Koala<br>
-      </div>
-      <div class="question">
-        <p>9. Where do I want to take you one day?</p>
-        <input type="radio" name="q9" value="a"> Paris<br>
-        <input type="radio" name="q9" value="b"> Hawaii<br>
-        <input type="radio" name="q9" value="c"> Alaska<br>
-      </div>
-      <div class="question">
-        <p>10. What do I love most about you?</p>
-        <input type="radio" name="q10" value="a"> Your laugh<br>
-        <input type="radio" name="q10" value="b"> Your heart<br>
-        <input type="radio" name="q10" value="c"> Your eyes<br>
-      </div>
-      <br>
-      <button type="button" onclick="submitQuiz()">Submit</button>
-    </form>
-    <p id="quizResult"></p>
+    <div id="questionText"></div>
+    <div id="optionsContainer"></div>
+    <button id="nextButton" onclick="checkAnswer()">Next</button>
+    <p id="feedback"></p>
+    <p id="finalScore"></p>
   </div>
 </body>
   <script>
-    function submitQuiz() {
-      const answers = {
-        q1: "b",
-        q2: "b",
-        q3: "c",
-        q4: "c",
-        q5: "a",
-        q6: "b",
-        q7: "a",
-        q8: "b",
-        q9: "a",
-        q10: "b"
-      };
+    const quizData = [
+      { question: "1. Where did we first hang out?", options: ["Coffee shop", "Beach", "Park"], answer: 1 },
+      { question: "2. What’s Abby’s favorite color?", options: ["Blue", "Pink", "Green"], answer: 1 },
+      { question: "3. What food do I always want?", options: ["Tacos", "Sushi", "Chick-fil-A"], answer: 2 },
+      { question: "4. What song reminds us of each other?", options: ["Perfect", "Oceans", "Tennessee Orange"], answer: 2 },
+      { question: "5. What’s my favorite nickname for you?", options: ["Lovebug", "Babe", "Honey"], answer: 0 },
+      { question: "6. What movie did we both love?", options: ["La La Land", "The Notebook", "Soul"], answer: 1 },
+      { question: "7. Who said 'I love you' first?", options: ["Me", "You", "Both at the same time"], answer: 0 },
+      { question: "8. What animal reminds me of you?", options: ["Bunny", "Puppy", "Koala"], answer: 1 },
+      { question: "9. Where do I want to take you one day?", options: ["Paris", "Hawaii", "Alaska"], answer: 0 },
+      { question: "10. What do I love most about you?", options: ["Your laugh", "Your heart", "Your eyes"], answer: 1 }
+    ];
 
-      let score = 0;
-      for (let q in answers) {
-        const selected = document.querySelector(`input[name="${q}"]:checked`);
-        if (selected && selected.value === answers[q]) {
-          score++;
-        }
+    let currentQuestion = 0;
+    let score = 0;
+
+    function loadQuestion() {
+      const q = quizData[currentQuestion];
+      document.getElementById("questionText").textContent = q.question;
+
+      const optionsHTML = q.options.map((opt, idx) => `
+        <label>
+          <input type="radio" name="option" value="${idx}">
+          ${opt}
+        </label><br>
+      `).join('');
+      document.getElementById("optionsContainer").innerHTML = optionsHTML;
+
+      document.getElementById("feedback").textContent = "";
+    }
+
+    function checkAnswer() {
+      const selected = document.querySelector('input[name="option"]:checked');
+      if (!selected) {
+        document.getElementById("feedback").textContent = "Please select an answer.";
+        return;
       }
 
-      const result = document.getElementById("quizResult");
-      result.textContent = `You scored ${score}/10! ❤️`;
+      const answerIndex = parseInt(selected.value);
+      if (answerIndex === quizData[currentQuestion].answer) {
+        score++;
+        currentQuestion++;
+        if (currentQuestion < quizData.length) {
+          loadQuestion();
+        } else {
+          document.getElementById("quizResult").style.display = "none";
+          document.getElementById("questionText").style.display = "none";
+          document.getElementById("optionsContainer").style.display = "none";
+          document.getElementById("nextButton").style.display = "none";
+          document.getElementById("feedback").style.display = "none";
+          document.getElementById("finalScore").textContent = `You finished the quiz! Score: ${score}/10 ❤️`;
+        }
+      } else {
+        document.getElementById("feedback").textContent = "Oops! Try again 😊";
+      }
     }
+
+    window.onload = loadQuestion;
   </script>
 </html>
