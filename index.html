@@ -103,6 +103,43 @@
         font-size: 1em;
       }
     }
+
+    .popup {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+    }
+
+    .popup-content {
+      background: white;
+      padding: 20px 30px;
+      border-radius: 10px;
+      text-align: center;
+      max-width: 90%;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+
+    .popup-content h3 {
+      color: #28a745;
+      margin-bottom: 10px;
+    }
+
+    .popup-content button {
+      margin-top: 15px;
+      padding: 8px 16px;
+      background-color: #d63384;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
   </style>
 </head>
 <body>
@@ -119,6 +156,13 @@
     <button id="nextButton" onclick="checkAnswer()">Next</button>
     <p id="feedback"></p>
     <p id="finalScore"></p>
+    <div id="customPopup" style="display:none;" class="popup">
+      <div class="popup-content">
+        <h3 id="popupTitle">Correct!</h3>
+        <p id="popupMessage">You got it right!</p>
+        <button onclick="closePopup()">OK</button>
+      </div>
+    </div>
   </div>
 </body>
   <script>
@@ -163,20 +207,39 @@
       const answerIndex = parseInt(selected.value);
       if (answerIndex === quizData[currentQuestion].answer) {
         score++;
-        alert("Correct! " + quizData[currentQuestion].question + " was a great memory!");
-        currentQuestion++;
-        if (currentQuestion < quizData.length) {
-          loadQuestion();
-        } else {
-          document.getElementById("quizResult").style.display = "none";
-          document.getElementById("questionText").style.display = "none";
-          document.getElementById("optionsContainer").style.display = "none";
-          document.getElementById("nextButton").style.display = "none";
-          document.getElementById("feedback").style.display = "none";
-          document.getElementById("finalScore").textContent = `You finished the quiz! Score: ${score}/10 ❤️`;
-        }
+        // Show custom popup with memory message
+        const messages = [
+          "I loved going to the beach with you that first time, such an awesome memory we made together :)",
+          "You remembered my favorite color! 💖",
+          "Yup, you know I’m always craving Chick-fil-A 😂",
+          "Tennessee Orange will always remind me of us!",
+          "Lovebug forever 🐞",
+          "The Notebook made us both emotional, didn’t it?",
+          "Yep, I said it first 😉",
+          "You’re definitely my little puppy 🐶",
+          "Paris is the dream 💕",
+          "Your heart is everything to me ❤️"
+        ];
+
+        document.getElementById("popupMessage").textContent = messages[currentQuestion];
+        document.getElementById("customPopup").style.display = "flex";
       } else {
         document.getElementById("feedback").textContent = "Oops! Try again.";
+      }
+    }
+
+    function closePopup() {
+      document.getElementById("customPopup").style.display = "none";
+      currentQuestion++;
+      if (currentQuestion < quizData.length) {
+        loadQuestion();
+      } else {
+        document.getElementById("quizResult").style.display = "none";
+        document.getElementById("questionText").style.display = "none";
+        document.getElementById("optionsContainer").style.display = "none";
+        document.getElementById("nextButton").style.display = "none";
+        document.getElementById("feedback").style.display = "none";
+        document.getElementById("finalScore").textContent = `You finished the quiz! Score: ${score}/10 ❤️`;
       }
     }
 
