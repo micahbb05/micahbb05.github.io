@@ -107,6 +107,7 @@
         flex-wrap: nowrap;
         overflow-x: auto;
         justify-content: flex-start;
+        gap: 10px;
       }
 
       .photo {
@@ -114,7 +115,8 @@
       }
 
       .photo img {
-        max-width: 90vw;
+        width: 45vw;
+        max-width: none;
         height: auto;
       }
     }
@@ -342,6 +344,7 @@
       } else {
         document.getElementById("popupTitle").textContent = "Oops!";
         document.getElementById("popupMessage").textContent = "Try again — I know you’ve got this";
+        document.getElementById("customPopup").style.display = "flex";
       }
     }
 
