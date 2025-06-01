@@ -248,8 +248,16 @@
         answer: 1
       },
       { question: "2. What date did we officially start dating?", options: ["November 27th", "December 7th", "December 8th", "December 15th"], answer: 1 },
-      { question: "3. What’s Abby’s favorite color?", options: ["Blue", "Pink", "Green"], answer: 1 },
-      { question: "4. What food do I always want?", options: ["Tacos", "Sushi", "Chick-fil-A"], answer: 2 },
+      {
+        question: "3. Which of these words describe you well?",
+        options: ["Amazing", "Gorgeous", "Beautiful", "Fun"],
+        answer: [0, 1, 2, 3]
+      },
+      {
+        question: "4. What is my favorite memory with you?",
+        options: ["Our first kiss", "Going to Big Lagoon together", "Lying under the stars with you", "The Airbnb night"],
+        answer: 3
+      },
       { question: "5. What song reminds us of each other?", options: ["Perfect", "Oceans", "Tennessee Orange"], answer: 2 },
       { question: "6. What’s my favorite nickname for you?", options: ["Lovebug", "Babe", "Honey"], answer: 0 },
       { question: "7. What movie did we both love?", options: ["La La Land", "The Notebook", "Soul"], answer: 1 },
@@ -260,6 +268,11 @@
         question: "Which of these words describe you well?",
         options: ["Amazing", "Gorgeous", "Beautiful", "Fun"],
         answer: [0, 1, 2, 3]
+      },
+      {
+        question: "What is my favorite memory with you?",
+        options: ["Our first kiss", "Going to Big Lagoon together", "Lying under the stars with you", "The Airbnb night"],
+        answer: 3
       }
     ];
 
@@ -296,27 +309,33 @@
         const messages = [
           "Correct!\nAlthough I love your beautiful smile, your caring heart, and your amazing chess skills, I love you most for who you are ❤️",
           "It was December 7th, we went to Big Lagoon and when we watched the sunset, I asked you to be my girlfriend :)",
-          "You remembered my favorite color! 💖",
-          "Yup, you know I’m always craving Chick-fil-A 😂",
+          "Correct!\nHaha all of them were correct, you are every single one of those words <3",
+          "Correct!\nAll of those memories are very precious, but that night at the Airbnb was so special. We spent the whole night together, fell asleep cuddling, and waking up with you in my arms was one of the best parts 💗",
           "Tennessee Orange will always remind me of us!",
           "Lovebug forever 🐞",
           "The Notebook made us both emotional, didn’t it?",
           "Yep, I said it first 😉",
           "You’re definitely my little puppy 🐶",
           "Paris is the dream 💕",
-          "Correct!\nHaha all of them were correct, you are every single one of those words <3"
+          "Correct!\nHaha all of them were correct, you are every single one of those words <3",
+          "Correct! All of those memories are very precious, but that night at the Airbnb was so special. We spent the whole night together, fell asleep cuddling, and waking up with you in my arms was one of the best parts 💗"
         ];
 
+        document.getElementById("popupTitle").textContent = "Correct!";
         document.getElementById("popupMessage").textContent = messages[currentQuestion];
         document.getElementById("customPopup").style.display = "flex";
       } else {
-        document.getElementById("feedback").textContent = "Oops! Try again.";
+        document.getElementById("popupTitle").textContent = "Oops!";
+        document.getElementById("popupMessage").textContent = "Try again — I know you’ve got this 💪";
+        document.getElementById("customPopup").style.display = "flex";
       }
     }
 
     function closePopup() {
       document.getElementById("customPopup").style.display = "none";
-      currentQuestion++;
+      if (document.getElementById("popupTitle").textContent === "Correct!") {
+        currentQuestion++;
+      }
       if (currentQuestion < quizData.length) {
         loadQuestion();
       } else {
@@ -325,7 +344,7 @@
         document.getElementById("optionsContainer").style.display = "none";
         document.getElementById("nextButton").style.display = "none";
         document.getElementById("feedback").style.display = "none";
-        document.getElementById("finalScore").textContent = `You finished the quiz! Score: ${score}/11 ❤️`;
+        document.getElementById("finalScore").textContent = `You finished the quiz! Score: ${score}/12 ❤️`;
       }
     }
 
