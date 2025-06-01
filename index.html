@@ -52,8 +52,9 @@
 
     .question {
       text-align: left;
-      margin-bottom: 14px;
-      font-size: 2.4em;
+      margin-bottom: 18px;
+      font-size: 2.6em !important;
+      font-weight: bold;
     }
 
     #optionsContainer label {
@@ -97,8 +98,9 @@
       }
 
       .question {
-        font-size: 2em;
-        margin-bottom: 14px;
+        font-size: 2.2em !important;
+        margin-bottom: 18px;
+        font-weight: bold;
       }
 
       #optionsContainer label {
@@ -284,7 +286,7 @@
 
     function loadQuestion() {
       const q = quizData[currentQuestion];
-      document.getElementById("questionText").textContent = q.question;
+      document.getElementById("questionText").innerHTML = `<div class="question">${q.question}</div>`;
 
       const optionsHTML = q.options.map((opt, idx) => `
         <label>
