@@ -11,16 +11,24 @@
       font-family: Georgia, serif;
       background: linear-gradient(180deg, #0b0b10, #12121a);
       color: #f5f5f7;
+      overflow: hidden;
     }
 
     header {
-      min-height: 100vh;
+      position: absolute;
+      inset: 0;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
       text-align: center;
       padding: 2rem;
+      transition: opacity 1s ease;
+    }
+
+    header.hidden {
+      opacity: 0;
+      pointer-events: none;
     }
 
     header h1 {
@@ -34,43 +42,91 @@
       font-size: 1.2rem;
     }
 
-    section {
-      max-width: 1100px;
-      margin: auto;
-      padding: 4rem 1.5rem;
+    #slideshow {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+    }
+
+    .slide {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 3rem;
+      opacity: 0;
+      transform: scale(1.06);
+      transition:
+        opacity 1s ease,
+        transform 1.2s ease;
+    }
+
+    .slide.active {
+      opacity: 1;
+      transform: scale(1);
+      z-index: 1;
     }
 
     .memory {
       background: #1b1b26;
       border-radius: 14px;
       padding: 2rem;
-      margin-bottom: 3rem;
+      max-width: 900px;
+      width: 100%;
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 2rem;
       align-items: center;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.45);
+      box-shadow: 0 30px 60px rgba(0,0,0,0.45);
     }
 
     .memory img {
       width: 100%;
       border-radius: 10px;
+      object-fit: cover;
     }
 
     .memory h2 {
       color: #d6b77c;
       margin-bottom: 0.5rem;
+      font-size: 1.6rem;
     }
 
     .memory p {
-      color: #e6e6eb;
       font-size: 1.05rem;
+      color: #e6e6eb;
     }
 
     footer {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
       text-align: center;
-      padding: 4rem 1.5rem;
-      color: #b7b7c4;
+      padding: 2rem;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 1s ease;
+    }
+
+    footer.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    footer h2 {
+      color: #d6b77c;
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+
+    footer p {
+      max-width: 600px;
+      color: #c7c7d1;
+      font-size: 1.2rem;
     }
 
     @media (max-width: 800px) {
@@ -83,75 +139,114 @@
 
 <body>
 
-<header>
+<header id="intro">
   <h1>Our Story 🎄</h1>
   <p>
-    A few moments. A lot of memories.  
+    A few moments. A lot of memories.<br>
     This is ours.
   </p>
 </header>
 
-<section>
+<div id="slideshow">
 
-  <div class="memory">
-    <img src="Photo1.jpg" alt="Memory One">
-    <div>
-      <h2>Memory One</h2>
-      <p>
-        The beginning of something that quietly became everything.
-      </p>
+  <div class="slide">
+    <div class="memory">
+      <img src="Photo1.jpg" alt="Memory One">
+      <div>
+        <h2>Memory One</h2>
+        <p>The beginning of something that quietly became everything.</p>
+      </div>
     </div>
   </div>
 
-  <div class="memory">
-    <img src="Photo2.jpg" alt="Memory Two">
-    <div>
-      <h2>Memory Two</h2>
-      <p>
-        One of those moments you don’t realize is special until later.
-      </p>
+  <div class="slide">
+    <div class="memory">
+      <img src="Photo2.jpg" alt="Memory Two">
+      <div>
+        <h2>Memory Two</h2>
+        <p>One of those moments you don’t realize is special until later.</p>
+      </div>
     </div>
   </div>
 
-  <div class="memory">
-    <img src="photo3.jpg" alt="Memory Three">
-    <div>
-      <h2>Memory Three</h2>
-      <p>
-        Proof that ordinary days can mean the most.
-      </p>
+  <div class="slide">
+    <div class="memory">
+      <img src="photo3.jpg" alt="Memory Three">
+      <div>
+        <h2>Memory Three</h2>
+        <p>Proof that ordinary days can mean the most.</p>
+      </div>
     </div>
   </div>
 
-  <div class="memory">
-    <img src="photo4.JPG" alt="Memory Four">
-    <div>
-      <h2>Memory Four</h2>
-      <p>
-        Laughs, closeness, and no rush to be anywhere else.
-      </p>
+  <div class="slide">
+    <div class="memory">
+      <img src="photo4.JPG" alt="Memory Four">
+      <div>
+        <h2>Memory Four</h2>
+        <p>Laughs, closeness, and no rush to be anywhere else.</p>
+      </div>
     </div>
   </div>
 
-  <div class="memory">
-    <img src="photo5.JPG" alt="Memory Five">
-    <div>
-      <h2>Memory Five</h2>
-      <p>
-        A snapshot of us, exactly as we were.
-      </p>
+  <div class="slide">
+    <div class="memory">
+      <img src="photo5.JPG" alt="Memory Five">
+      <div>
+        <h2>Memory Five</h2>
+        <p>A snapshot of us, exactly as we were.</p>
+      </div>
     </div>
   </div>
 
-</section>
+</div>
 
-<footer>
+<footer id="ending">
   <h2>Merry Christmas ❤️</h2>
   <p>
-    No matter where we go next,  
+    No matter where we go next,<br>
     I’ll always be grateful for these moments with you.
   </p>
 </footer>
+
+<script>
+  const intro = document.getElementById('intro');
+  const slides = document.querySelectorAll('.slide');
+  const ending = document.getElementById('ending');
+
+  let index = -1;
+
+  function update() {
+    slides.forEach(s => s.classList.remove('active'));
+    ending.classList.remove('active');
+
+    if (index === -1) {
+      intro.classList.remove('hidden');
+      return;
+    }
+
+    intro.classList.add('hidden');
+
+    if (index < slides.length) {
+      slides[index].classList.add('active');
+    } else {
+      ending.classList.add('active');
+    }
+  }
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight' || e.key === ' ') {
+      index = Math.min(index + 1, slides.length);
+      update();
+    }
+    if (e.key === 'ArrowLeft') {
+      index = Math.max(index - 1, -1);
+      update();
+    }
+  });
+
+  update();
+</script>
 
 </body>
 </html>
