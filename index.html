@@ -1,251 +1,134 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Our Christmas Scrapbook 🎄</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta charset="UTF-8">
+<title>Our Scrapbook</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <style>
-    body {
-      margin: 0;
-      font-family: Georgia, serif;
-      background: linear-gradient(180deg, #0b0b10, #12121a);
-      color: #f5f5f7;
-      overflow: hidden;
-    }
+<style>
+* {
+  box-sizing: border-box;
+  font-family: "Georgia", serif;
+}
 
-    header {
-      position: absolute;
-      inset: 0;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      padding: 2rem;
-      transition: opacity 1s ease;
-    }
+body {
+  margin: 0;
+  height: 100vh;
+  background: #f2efe9;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
-    header.hidden {
-      opacity: 0;
-      pointer-events: none;
-    }
+.book {
+  width: 320px;
+  height: 460px;
+  perspective: 2000px;
+  position: relative;
+}
 
-    header h1 {
-      font-size: 3rem;
-      margin-bottom: 1rem;
-    }
+.page {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: #fffaf3;
+  transform-origin: left;
+  transition: transform 1s ease;
+  box-shadow: 0 10px 30px rgba(0,0,0,.25);
+  cursor: pointer;
+}
 
-    header p {
-      max-width: 600px;
-      color: #c7c7d1;
-      font-size: 1.2rem;
-    }
+.page.flipped {
+  transform: rotateY(-180deg);
+}
 
-    #slideshow {
-      position: relative;
-      width: 100vw;
-      height: 100vh;
-    }
+.cover {
+  background: #7b4a2e;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+}
 
-    .slide {
-      position: absolute;
-      inset: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 3rem;
-      opacity: 0;
-      transform: scale(1.06);
-      transition:
-        opacity 1s ease,
-        transform 1.2s ease;
-    }
+.cover h1 {
+  margin: 0;
+  font-size: 2rem;
+}
 
-    .slide.active {
-      opacity: 1;
-      transform: scale(1);
-      z-index: 1;
-    }
+.cover span {
+  margin-top: 10px;
+  opacity: .8;
+  font-size: .85rem;
+}
 
-    .memory {
-      background: #1b1b26;
-      border-radius: 14px;
-      padding: 2rem;
-      max-width: 900px;
-      width: 100%;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 2rem;
-      align-items: center;
-      box-shadow: 0 30px 60px rgba(0,0,0,0.45);
-    }
+.content {
+  padding: 20px;
+  text-align: center;
+}
 
-    .memory img {
-      width: 100%;
-      border-radius: 10px;
-      object-fit: cover;
-    }
+.content img {
+  width: 100%;
+  border-radius: 6px;
+  margin-bottom: 12px;
+}
 
-    .memory h2 {
-      color: #d6b77c;
-      margin-bottom: 0.5rem;
-      font-size: 1.6rem;
-    }
-
-    .memory p {
-      font-size: 1.05rem;
-      color: #e6e6eb;
-    }
-
-    footer {
-      position: absolute;
-      inset: 0;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      padding: 2rem;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 1s ease;
-    }
-
-    footer.active {
-      opacity: 1;
-      pointer-events: auto;
-    }
-
-    footer h2 {
-      color: #d6b77c;
-      font-size: 2.5rem;
-      margin-bottom: 1rem;
-    }
-
-    footer p {
-      max-width: 600px;
-      color: #c7c7d1;
-      font-size: 1.2rem;
-    }
-
-    @media (max-width: 800px) {
-      .memory {
-        grid-template-columns: 1fr;
-      }
-    }
-  </style>
+.back {
+  background: #7b4a2e;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+</style>
 </head>
 
 <body>
 
-<header id="intro">
-  <h1>Our Story 🎄</h1>
-  <p>
-    A few moments. A lot of memories.<br>
-    This is ours.
-  </p>
-</header>
+<div class="book">
+  <div class="page cover">
+    <h1>Our Story</h1>
+    <span>Click to begin</span>
+  </div>
 
-<div id="slideshow">
-
-  <div class="slide">
-    <div class="memory">
-      <img src="Photo1.jpg" alt="Memory One">
-      <div>
-        <h2>Memory One</h2>
-        <p>The beginning of something that quietly became everything.</p>
-      </div>
+  <div class="page">
+    <div class="content">
+      <img src="https://via.placeholder.com/300x200">
+      <h2>The Beginning</h2>
+      <p>The moment I didn’t realize would matter this much.</p>
     </div>
   </div>
 
-  <div class="slide">
-    <div class="memory">
-      <img src="Photo2.jpg" alt="Memory Two">
-      <div>
-        <h2>Memory Two</h2>
-        <p>One of those moments you don’t realize is special until later.</p>
-      </div>
+  <div class="page">
+    <div class="content">
+      <img src="https://via.placeholder.com/300x200">
+      <h2>My Favorite Memory</h2>
+      <p>This day still plays in my head when I miss you.</p>
     </div>
   </div>
 
-  <div class="slide">
-    <div class="memory">
-      <img src="photo3.jpg" alt="Memory Three">
-      <div>
-        <h2>Memory Three</h2>
-        <p>Proof that ordinary days can mean the most.</p>
-      </div>
+  <div class="page">
+    <div class="content">
+      <img src="https://via.placeholder.com/300x200">
+      <h2>Still Choosing You</h2>
+      <p>No pressure. Just intention.</p>
     </div>
   </div>
 
-  <div class="slide">
-    <div class="memory">
-      <img src="photo4.JPG" alt="Memory Four">
-      <div>
-        <h2>Memory Four</h2>
-        <p>Laughs, closeness, and no rush to be anywhere else.</p>
-      </div>
-    </div>
+  <div class="page back">
+    <h2>Merry Christmas 🤍</h2>
   </div>
-
-  <div class="slide">
-    <div class="memory">
-      <img src="photo5.JPG" alt="Memory Five">
-      <div>
-        <h2>Memory Five</h2>
-        <p>A snapshot of us, exactly as we were.</p>
-      </div>
-    </div>
-  </div>
-
 </div>
 
-<footer id="ending">
-  <h2>Merry Christmas ❤️</h2>
-  <p>
-    No matter where we go next,<br>
-    I’ll always be grateful for these moments with you.
-  </p>
-</footer>
-
 <script>
-  const intro = document.getElementById('intro');
-  const slides = document.querySelectorAll('.slide');
-  const ending = document.getElementById('ending');
+const pages = document.querySelectorAll(".page");
 
-  let index = -1;
-
-  function update() {
-    slides.forEach(s => s.classList.remove('active'));
-    ending.classList.remove('active');
-
-    if (index === -1) {
-      intro.classList.remove('hidden');
-      return;
-    }
-
-    intro.classList.add('hidden');
-
-    if (index < slides.length) {
-      slides[index].classList.add('active');
-    } else {
-      ending.classList.add('active');
-    }
-  }
-
-  document.addEventListener('keydown', e => {
-    if (e.key === 'ArrowRight' || e.key === ' ') {
-      index = Math.min(index + 1, slides.length);
-      update();
-    }
-    if (e.key === 'ArrowLeft') {
-      index = Math.max(index - 1, -1);
-      update();
-    }
+pages.forEach((page, i) => {
+  page.style.zIndex = pages.length - i;
+  page.addEventListener("click", () => {
+    page.classList.toggle("flipped");
   });
-
-  update();
+});
 </script>
 
 </body>
